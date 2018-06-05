@@ -3,7 +3,6 @@ AkkareBigBridge
 AkkareGarrison
 AkkareZhai
 AkkareZhaiBridge
-AncientLabo
 AnoleTunnel
 Assassin
 BigBrotherBridge
@@ -60,7 +59,6 @@ HachijoBridge
 Hatago001
 Hateno
 HatenoGate
-HatenoLabo
 HebraBottomRemains
 HebraRemains
 HeburaFossil
@@ -115,21 +113,6 @@ LightningPlateau
 LittleBrotherBridge
 LomeiIslands
 LostForest
-MapTower01
-MapTower02
-MapTower03
-MapTower04
-MapTower05
-MapTower06
-MapTower07
-MapTower08
-MapTower09
-MapTower10
-MapTower11
-MapTower12
-MapTower13
-MapTower14
-MapTower15
 MaronSpring
 MarritaExchange
 MasazuBridge
@@ -146,10 +129,6 @@ OrdinFossil
 OsanjoBridge
 PostTownRuin
 PowerFountain
-RemainsElectric
-RemainsFire
-RemainsWater
-RemainsWind
 RirikendoBridge
 Rito
 RitoHatago
@@ -166,7 +145,6 @@ SojijiPark
 SotonkaBridge
 SouthGerudoLegacy
 SouthMine
-StartPoint
 StonePillers
 SusukadiBridge
 TabantaBridge

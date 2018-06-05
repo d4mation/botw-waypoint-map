@@ -68,7 +68,7 @@ for line in tracked_locations:
 
             img_x = int(x/2 + 3000)
             img_y = int(z/2 + 2500)
-            map_draw.ellipse((img_x-CIRCLE_RADIUS, img_y-CIRCLE_RADIUS, img_x+CIRCLE_RADIUS, img_y+CIRCLE_RADIUS), fill='cyan', outline='blue')
+            map_draw.ellipse((img_x-CIRCLE_RADIUS, img_y-CIRCLE_RADIUS, img_x+CIRCLE_RADIUS, img_y+CIRCLE_RADIUS), fill='orange', outline='red')
 
             found = True
             break
@@ -76,6 +76,45 @@ for line in tracked_locations:
         print('Not found %s (%s)' % (location, name))
 
 map_locations.write('};\n')
+
+# Grabs Warps
+warps = open('warps.txt')
+
+map_locations.write('var warps = {\n')
+
+for line in warps : 
+    warp = line.strip()
+    found = False
+    name = None
+    if warp in location_names:
+        name = location_names[warp]
+    for value in static_values:
+        saveflag = value.findall('./SaveFlag')[0].text
+        
+        if 'Location_' + warp == saveflag:
+            messageIDs = value.findall('./MessageID')
+            if not name and len(messageIDs) and (messageIDs[0].text in location_names):
+                name = location_names[messageIDs[0].text]
+            if not name:
+                name = warp
+            
+            translate = value.findall('./Translate')[0]
+            x,z = float(translate.attrib['X'].rstrip('f')), float(translate.attrib['Z'].rstrip('f'))
+            map_locations.write('%s: {"internal_name":"%s", "display_name":"%s", "x":%g, "y":%g},\n' % ( create_hash( saveflag, gamedata ), saveflag, name, x, z ) )
+
+            img_x = int(x/2 + 3000)
+            img_y = int(z/2 + 2500)
+            map_draw.polygon((img_x-CIRCLE_RADIUS,img_y,img_x,img_y-CIRCLE_RADIUS,img_x+CIRCLE_RADIUS,img_y,img_x,img_y+CIRCLE_RADIUS,img_x-CIRCLE_RADIUS,img_y),fill='cyan',outline='blue')
+
+            found = True
+            break
+    if not found:
+        print('Not found %s (%s)' % (warp, name))
+
+
+map_locations.write('};\n')
+
+tracked_locations.close()
 
 # Grabs Koroks
 static_values = ET.parse('Static.xml').getroot().findall('./*/value/Flag/..')
@@ -94,7 +133,6 @@ for value in static_values:
 
 map_locations.write('};\n')
 
-tracked_locations.close()
 map_locations.close()
 
 botw_map.save('BotW-Map-Labeled.png')
