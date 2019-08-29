@@ -61,6 +61,48 @@
 		</div>
 		<div><a href="https://mrcheeze.github.io/">https://mrcheeze.github.io/</a></div>
 		<script>
+
+			/**
+			 * Adapted from https://stackoverflow.com/a/55963590
+			 */
+			function lineDraw( korokId, x1, y1, x2, y2 ) {
+
+				if ( x2 < x1 ) {
+					tmp = x2; x2 = x1; x1 = tmp;
+					tmp = y2; y2 = y1; y1 = tmp;
+				}
+
+				lineLength = Math.sqrt( Math.pow( x2 - x1, 2 ) + Math.pow( y2 - y1, 2 ) );
+				m = (y2 - y1) / (x2 - x1)
+
+				degree = Math.atan( m ) * 180 / Math.PI
+
+				return "<div class='line "+ korokId + "' style='transform-origin: top left; transform: rotate(" + degree + "deg); width: " + lineLength + "px; height: 3px; background: white; position: absolute; top: " + y1 + "px; left: " + x1 + "px;'></div>"
+
+			}
+
+			for ( var korokId in korokPaths ) {
+
+				for ( index in korokPaths[ korokId ].points ) {
+
+					console.log( korokPaths[ korokId ].points );
+
+					// Skip the first point. We need 2 points to draw a line
+					if ( index == 0 ) continue;
+
+					let x1 = korokPaths[ korokId ].points[ index - 1 ].x,
+						y1 = korokPaths[ korokId ].points[ index - 1 ].y,
+						x2 = korokPaths[ korokId ].points[ index ].x,
+						y2 = korokPaths[ korokId ].points[ index ].y;
+
+					let line = lineDraw( korokId, ( 3000 + x1/2 ), ( 2500 + y1/2 ), ( 3000 + x2/2 ), ( 2500 + y2/2 ) );
+
+					$('#container').append( line );
+
+				}
+
+			}
+
 			for (var hash in locations ) {
 				$('#container').append('<div class="waypoint lotation" style="left: ' + (3000 + locations[hash].x/2) + '; top: ' + (2500 + locations[hash].y/2) + '" data-display_name="' + locations[hash].display_name + '">' + '</div>');
 			}
