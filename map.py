@@ -145,6 +145,8 @@ for hash in global_map_locations["FldObj_KorokGoal_A_01"]["locations"] :
     path = []
     points = []
 
+    korokPath['path'].reverse()
+
     for pathItem in korokPath['path'] : 
 
         path.append( {
